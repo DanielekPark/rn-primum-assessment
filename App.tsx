@@ -32,12 +32,21 @@ export default function App() {
     <ScrollView>
       <View className="bg-gray-100">
         <Header />
-        <View>
-          <View>
-            <TextInput></TextInput>
+        <View className="mx-auto w-11/12">
+          <View className="border-2 pt-4 pb-4">
+            <TextInput
+              placeholder="Search for a country..."
+              className="text-black bg-white block w-full rounded-lg pt-2 pb-2 text-sm font-medium"
+            />
+            <View className="mb-8 flex">
+              <View className="mt-10">
+                <Select />
+              </View>
+            </View>
           </View>
-          <Select />
         </View>
+        {/* List of countries */}
+        <View></View>
       </View>
     </ScrollView>
   );
