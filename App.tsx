@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, ScrollView, TextInput } from "react-native";
+import { Text, View, ScrollView, TextInput, Image } from "react-native";
 import Header from "./components/header";
 import Select from "./components/select";
 
@@ -28,6 +28,10 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <ScrollView>
       <View className="bg-gray-100">
@@ -46,7 +50,43 @@ export default function App() {
           </View>
         </View>
         {/* List of countries */}
-        <View></View>
+        <View className="pb-2">
+          {countriesData?.list?.map((country: any, index: number) => {
+            return (
+              <View
+                className={`mb-8 bg-white rounded-lg w-2/3 mx-auto`}
+                key={`react-key${index}`}
+              >
+                <View className={`${""} py-16 px-8`}>
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={{ uri: country.flags.png }}
+                  />
+                </View>
+                {/* country name and info */}
+                <View className={`${""} pt-2`}>
+                  <View className="pt-4">
+                    <Text className="text-xl font-bold">
+                      {country.name.common}
+                    </Text>
+                    <Text className="text-base text-gray-700">
+                      <Text className="font-bold">Population: </Text>
+                      {country.population}
+                    </Text>
+                    <Text className="text-base text-gray-700">
+                      <Text className="font-bold">Region: </Text>
+                      {country.region}
+                    </Text>
+                    <Text className="text-base text-gray-700">
+                      <Text className="font-bold">Capital: </Text>
+                      {country.capital[0]}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </ScrollView>
   );
