@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, ScrollView, TextInput, Image } from "react-native";
+import { View, ScrollView, SafeAreaView } from "react-native";
 import Header from "./components/header";
 import CountriesList from "./components/countrieslist";
 import Form from "./components/form";
 
 export default function App() {
   const [countriesData, setCountriesData] = useState<{
-    list: Array<unknown>;
-    searchVal: string;
-    filtered: Array<unknown>;
-    regions: Array<string>;
+    list: Array<unknown>,
+    searchVal: string,
+    filtered: Array<unknown>,
+    regions: Array<unknown>,
   }>({
     list: [],
     searchVal: "",
     filtered: [],
-    regions: ["Africa", "America", "Asia", "Europe", "Oceania"],
+    regions: [
+      { label: "Africa", value: "Africa"},
+      { label: "America", value: "Americas"},
+      { label: "Asia", value: "Asia"},
+      { label: "Europe", value: "Europe"},
+      { label: "Oceania", value: "Oceania"}],
   });
 
   const fetchData = async () => {
@@ -34,18 +39,24 @@ export default function App() {
   }, []);
 
   return (
-    <ScrollView>
-      <View className="bg-gray-100">
+    <SafeAreaView>
+      <View className="bg-gray-100" >
         <Header />
-        <Form 
+        <View style={{zIndex: 2000}}>
+        <Form
           countriesData={countriesData}
           setCountriesData={setCountriesData}
-          />
-        {/* List of countries */}
-        <View className="pb-2">
-          <CountriesList {...countriesData} />
+        />
+        </View>
+        <View style={{zIndex: 1000}}>
+        <ScrollView>
+          {/* List of countries */}
+          <View className="pb-2">
+            <CountriesList {...countriesData} />
+          </View>
+        </ScrollView>          
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }

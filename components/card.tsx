@@ -2,7 +2,7 @@ import React, { Text, View, Image } from "react-native";
 
 type country = {
     png: string,
-    common: string , 
+    common: string, 
     population: number,
     region: string,
     capital: Array<string>

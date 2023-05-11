@@ -1,4 +1,4 @@
-import React, { Text, View, Image } from "react-native";
+import React, { Text, View } from "react-native";
 import Card from "./card";
 
 type countriesData = {
@@ -8,7 +8,6 @@ type countriesData = {
 };
 
 const CountriesList = ({ list, filtered, searchVal }: countriesData) => {
-
     //Displays countries based on typed value
   if (filtered.length > 0) {
     return (
@@ -17,7 +16,7 @@ const CountriesList = ({ list, filtered, searchVal }: countriesData) => {
           {filtered?.map((country: any, index: number) => {
             return (
               <Card
-                key={`react-filter-key${country.name.common}`}
+                key={`filter-key${country.name.common + index}`}
                 png={country.flags.png}
                 common={country.name.common}
                 population={country.population}
@@ -43,7 +42,7 @@ const CountriesList = ({ list, filtered, searchVal }: countriesData) => {
   //Displays all countries
   return (
     <>
-      {list?.map((country: any, index: number) => {
+      {list?.map((country: any) => {
         return (
           <Card
             key={`react-country-key${country.name.common}`}
