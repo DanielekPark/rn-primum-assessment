@@ -15,10 +15,11 @@ type Props = {
     filtered: Array<unknown>,
     regions: Array<unknown>,
   }
-  showBtn: Boolean
+  showBtn: Boolean; 
+  darkMode: Boolean; 
 };
 
-const CountriesList = ({ list, filtered, searchVal, screenWidth, setShowBtn, setCountriesData, countriesData, showBtn }: Props) => {
+const CountriesList = ({ list, filtered, searchVal, screenWidth, setShowBtn, setCountriesData, countriesData, showBtn, darkMode }: Props) => {
     //Displays countries based on typed value
   if (filtered.length > 0) {
     return (
@@ -44,6 +45,7 @@ const CountriesList = ({ list, filtered, searchVal, screenWidth, setShowBtn, set
                 tld={country.tld}
                 borders={country.borders}
                 languages={country.languages}
+                darkMode={darkMode}
               />
             );
           })}
@@ -56,7 +58,7 @@ const CountriesList = ({ list, filtered, searchVal, screenWidth, setShowBtn, set
   if (searchVal.length > 0 && filtered.length < 1) {
     return (
       <>
-        <Text>No results</Text>
+        <Text style={{color: darkMode ? "#fff" : '#000000'}} >No results</Text>
       </>
     );
   }
@@ -84,6 +86,7 @@ const CountriesList = ({ list, filtered, searchVal, screenWidth, setShowBtn, set
             tld={country.tld}
             borders={country.borders}
             languages={country.languages}
+            darkMode={darkMode}
           />
         );
       })}

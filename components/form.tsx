@@ -5,9 +5,10 @@ import DropDownPicker from "react-native-dropdown-picker";
 type props = {
   setCountriesData: Function,
   countriesData: any,
+  darkMode: Boolean,
 }
 
-const Form = ({ setCountriesData, countriesData} : props) => {
+const Form = ({ setCountriesData, countriesData, darkMode} : props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>(''); 
 
@@ -28,14 +29,17 @@ const Form = ({ setCountriesData, countriesData} : props) => {
     setCountriesData({ ...countriesData, filtered: filterSearch }); 
     return;
   }
-  
+
   return (
     <View className="mx-auto w-11/12">
       <View className="pt-4 pb-4">
         <TextInput
           onChangeText={(value) => handleChange(value)}
           placeholder="Search for a country..."
-          className="text-black bg-white block w-full rounded-lg pl-2 pt-2 pb-2 text-sm font-medium"
+          placeholderTextColor={ darkMode ? "#fff" : '#000000'}
+          className={`block w-full rounded-lg pl-2 pt-2 pb-2 text-sm font-medium`}
+          style={{backgroundColor: darkMode ? "#1f2d38" : "#fff", 
+          color: darkMode ? "#fff" : '#000000' }}
         />
           <View className="mt-10 mb-6 w-2/3">
             <DropDownPicker

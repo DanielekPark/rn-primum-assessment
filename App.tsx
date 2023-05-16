@@ -3,12 +3,14 @@ import {
   View,
   SafeAreaView,
   Dimensions,
-  Button,
   ScrollView,
+  Pressable, 
+  Text
 } from "react-native";
 import Header from "./components/header";
 import CountriesList from "./components/countrieslist";
 import Form from "./components/form";
+import Icon from "react-native-vector-icons/AntDesign";
 
 export default function App() {
   const [countriesData, setCountriesData] = useState<{
@@ -32,6 +34,8 @@ export default function App() {
     Dimensions.get("window").width
   ); //sets responsive image width
   const [showBtn, setShowBtn] = useState<Boolean>(false);
+  const [darkMode, setDarkMode] = useState<Boolean>(false); 
+
 
   const fetchData = async () => {
     try {
@@ -55,25 +59,24 @@ export default function App() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(countriesData);
-  // }, [countriesData]);
-
   return (
     <SafeAreaView>
-      <View className="bg-gray-100 overflow-scroll">
-        <Header />
+      <View style={{backgroundColor: darkMode ? "#202d36" : "#fff"}} className="bg-gray-100 overflow-scroll">
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
         {!showBtn ? (
           <View style={{ zIndex: 2000 }}>
             <Form
               countriesData={countriesData}
               setCountriesData={setCountriesData}
+              darkMode={darkMode}
             />
           </View>
         ) : (
           <View className="mb-8 mx-auto w-11/12">
             <View className="w-1/3">
-              <Button title="<--- Back" onPress={showAllResults} />
+              <Pressable>
+                <Text style={{color: darkMode ? "#fff" : '#000000'}} ><Icon name="arrowleft" onPress={showAllResults} size={20} color={darkMode ? '#F8F8FF' : '#000000' }/>  Back</Text> 
+              </Pressable>
             </View>
           </View>
         )}
@@ -88,6 +91,7 @@ export default function App() {
               setCountriesData={setCountriesData}
               countriesData={countriesData}
               showBtn={showBtn}
+              darkMode={darkMode}
             />
           </View>
         </ScrollView>
@@ -95,3 +99,7 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+
+  //background color: #202d36
+  //secondary: #1e2c37
