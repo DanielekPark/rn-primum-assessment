@@ -41,6 +41,7 @@ Your users should be able to:
 ## Packages
 [React Native Dropdown Picker](https://hossein-zare.github.io/react-native-dropdown-picker-website/docs)
 - [React Native Picker](https://reactnative.dev/docs/0.65/picker) is deprecated. The documentation recommends using a community package instead. 
+[React-Native-Vector-Icons](https://github.com/oblador/react-native-vector-icons)
 
 ## Set up
 Clone this repo and run: 
