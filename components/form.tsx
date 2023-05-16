@@ -17,6 +17,7 @@ const Form = ({ setCountriesData, countriesData} : props) => {
       if (country.name.common.toLowerCase().includes(value.toLowerCase())) {
         return country; 
       }
+      
     }); 
     setCountriesData({ ...countriesData, filtered: results }); 
   }
@@ -34,10 +35,9 @@ const Form = ({ setCountriesData, countriesData} : props) => {
         <TextInput
           onChangeText={(value) => handleChange(value)}
           placeholder="Search for a country..."
-          className="text-black bg-white block w-full rounded-lg pt-2 pb-2 text-sm font-medium"
+          className="text-black bg-white block w-full rounded-lg pl-2 pt-2 pb-2 text-sm font-medium"
         />
-        <View className="mb-8 flex">
-          <View className="mt-10" >
+          <View className="mt-10 mb-6 w-2/3">
             <DropDownPicker
               open={open}
               value={value}
@@ -48,7 +48,6 @@ const Form = ({ setCountriesData, countriesData} : props) => {
               placeholder="Filter by region"
             />
           </View>
-        </View>
       </View>
     </View>
   );

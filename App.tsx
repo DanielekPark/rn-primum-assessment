@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, SafeAreaView } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Dimensions,
+  Button,
+  ScrollView,
+} from "react-native";
 import Header from "./components/header";
 import CountriesList from "./components/countrieslist";
 import Form from "./components/form";
 
 export default function App() {
   const [countriesData, setCountriesData] = useState<{
-    list: Array<unknown>,
-    searchVal: string,
-    filtered: Array<unknown>,
-    regions: Array<unknown>,
+    list: Array<unknown>;
+    searchVal: string;
+    filtered: Array<unknown>;
+    regions: Array<unknown>;
   }>({
     list: [],
     searchVal: "",
     filtered: [],
     regions: [
-      { label: "Africa", value: "Africa"},
-      { label: "America", value: "Americas"},
-      { label: "Asia", value: "Asia"},
-      { label: "Europe", value: "Europe"},
-      { label: "Oceania", value: "Oceania"}],
+      { label: "Africa", value: "Africa" },
+      { label: "America", value: "Americas" },
+      { label: "Asia", value: "Asia" },
+      { label: "Europe", value: "Europe" },
+      { label: "Oceania", value: "Oceania" },
+    ],
   });
+  const [screenWidth, setScreenWidth] = useState<number>(
+    Dimensions.get("window").width
+  ); //sets responsive image width
+  const [showBtn, setShowBtn] = useState<Boolean>(false);
 
   const fetchData = async () => {
     try {
@@ -34,28 +45,52 @@ export default function App() {
     }
   };
 
+  //Displays all country profile when back button is clicked
+  const showAllResults = () => {
+    setCountriesData({ ...countriesData, filtered: countriesData.list });
+    setShowBtn(false);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   console.log(countriesData);
+  // }, [countriesData]);
+
   return (
     <SafeAreaView>
-      <View className="bg-gray-100" >
+      <View className="bg-gray-100 overflow-scroll">
         <Header />
-        <View style={{zIndex: 2000}}>
-        <Form
-          countriesData={countriesData}
-          setCountriesData={setCountriesData}
-        />
-        </View>
-        <View style={{zIndex: 1000}}>
-        <ScrollView>
-          {/* List of countries */}
-          <View className="pb-2">
-            <CountriesList {...countriesData} />
+        {!showBtn ? (
+          <View style={{ zIndex: 2000 }}>
+            <Form
+              countriesData={countriesData}
+              setCountriesData={setCountriesData}
+            />
           </View>
-        </ScrollView>          
-        </View>
+        ) : (
+          <View className="mb-8 mx-auto w-11/12">
+            <View className="w-1/3">
+              <Button title="<--- Back" onPress={showAllResults} />
+            </View>
+          </View>
+        )}
+        <ScrollView>
+          <View className="pb-2" style={{ zIndex: 1000 }}>
+            <CountriesList
+              list={countriesData.list}
+              filtered={countriesData.filtered}
+              searchVal={countriesData.searchVal}
+              screenWidth={screenWidth}
+              setShowBtn={setShowBtn}
+              setCountriesData={setCountriesData}
+              countriesData={countriesData}
+              showBtn={showBtn}
+            />
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
